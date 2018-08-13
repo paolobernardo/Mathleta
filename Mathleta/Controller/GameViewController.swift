@@ -11,6 +11,12 @@ import UIKit
 class GameViewController: UIViewController {
 
     
+    @IBOutlet weak var timerLabel: UILabel!
+    var timer = Timer()
+    var timerCounter = 60
+    
+    @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var equationQuestionLabel: UILabel!
     
     @IBOutlet weak var buttonOneLabel: UIButton!
@@ -22,7 +28,7 @@ class GameViewController: UIViewController {
     
     var name : String = ""
     var score : Int = 0
-    var correctAnswers : Int = 0
+    var nextLevelCount : Int = 0
     var level : Int = 1
     
     var pickedAnswer : Int = 0
@@ -30,6 +36,11 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(name)
+        
+        timerLabel.text = "Time: \(timerCounter)"
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
         
         nextQuestion()
         
@@ -61,9 +72,26 @@ class GameViewController: UIViewController {
     
     
     func nextQuestion(){
-        if correctAnswers <= 10{
+        if nextLevelCount < 10{
             question = Equation(currentLevel: level)
             updateUI()
+        }else{
+            level += 1
+            if level == 5{ //Player has completed the game, save details, go back to main menu
+                print("Congrats you finished the game!")
+                let alert = UIAlertController(title: "Congratulations!", message: "You have succesfully completed Mathleta!", preferredStyle: .alert)
+                let restartAction = UIAlertAction(title: "Main Menu", style: .default, handler: { (UIAlertAction) in
+                    self.backToMainMenu()
+                })
+                alert.addAction(restartAction)
+                present(alert, animated: true, completion: nil)
+            }else{
+                nextLevelCount = 0
+                question = Equation(currentLevel: level)
+                timerCounter = 60
+                updateUI()
+            }
+            
         }
         
     }
@@ -74,6 +102,9 @@ class GameViewController: UIViewController {
         buttonTwoLabel.setTitle("\(question.randomAnswers[1])", for: .normal)
         buttonThreeLabel.setTitle("\(question.randomAnswers[2])", for: .normal)
         buttonFourLabel.setTitle("\(question.randomAnswers[3])", for: .normal)
+        scoreLabel.text = "Score: \(score)"
+        levelLabel.text = "Level: \(level)"
+        
         
         
         
@@ -82,15 +113,37 @@ class GameViewController: UIViewController {
     func checkAnswer(){
         if pickedAnswer == question.correctAnswer{
             score += 1
+            nextLevelCount += 1
             print("Correct")
         }else{
             print("Incorrect")
         }
     }
     
-
     
-
-
+    @objc func updateTimer(){
+        timerCounter -= 1
+        timerLabel.text = "Time: \(timerCounter)"
+        if timerCounter == 0{ //Timer has elapsed, save details, go back to main menu
+            timer.invalidate()
+            print("End game")
+            let alert = UIAlertController(title: "Timer has elapsed", message: "Better luck next time!", preferredStyle: .alert)
+            let restartAction = UIAlertAction(title: "Main Menu", style: .default, handler: { (UIAlertAction) in
+                self.backToMainMenu()
+            })
+            alert.addAction(restartAction)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func backToMainMenu(){
+        //save details
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    
 }
+
 

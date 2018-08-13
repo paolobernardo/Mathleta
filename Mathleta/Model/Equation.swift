@@ -64,17 +64,23 @@ class Equation {
             fullEquation = "\(firstOperand) - \(secondOperand)"
         }else if equationOperator == "*"{
             correctAnswer = firstOperand * secondOperand
-            fullEquation = "\(firstOperand) * \(secondOperand)"
+            fullEquation = "\(firstOperand) \u{00D7} \(secondOperand)"
         }
         
         createRandomAnswers()
     }
     
     func createRandomAnswers(){
-        
-        randomAnswers.append(generateRandomAnswer(lower: correctAnswer-10, upper: correctAnswer+10))
-        randomAnswers.append(generateRandomAnswer(lower: correctAnswer-10, upper: correctAnswer+10))
-        randomAnswers.append(generateRandomAnswer(lower: correctAnswer-10, upper: correctAnswer+10))
+        var i = 1
+        var checkerInt = 0
+        while(i <= 3){
+            checkerInt = generateRandomAnswer(lower: correctAnswer-10, upper: correctAnswer+10)
+            if !(randomAnswers.contains(checkerInt)){
+                randomAnswers.append(checkerInt)
+                i += 1;
+            }
+            
+        }
         randomAnswers.append(correctAnswer)
         randomAnswers.shuffle()
         
@@ -93,8 +99,8 @@ class Equation {
 }
 
 
-//Obtained from https://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
 //Used to shuffle the list of random answers to be used in the button labels
+//Obtained from https://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
 extension MutableCollection {
     /// Shuffles the contents of this collection.
     mutating func shuffle() {
