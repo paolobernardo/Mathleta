@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GameViewController: UIViewController {
 
@@ -26,10 +27,13 @@ class GameViewController: UIViewController {
     
     var question = Equation(currentLevel: 1) // This is initial value
     
-    var name : String = ""
-    var score : Int = 0
+    let realm = try! Realm()
+    var player : Player?
+    
+    var name : String = "" //Used Player class - to delete
+    var score : Int = 0 //Used Player class - to delete
     var nextLevelCount : Int = 0
-    var level : Int = 1
+    var level : Int = 1 //Used Player class - to delete
     
     var pickedAnswer : Int = 0
     
@@ -37,7 +41,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(name)
+        print(player!.name)
         
         timerLabel.text = "Time: \(timerCounter)"
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
@@ -73,11 +77,11 @@ class GameViewController: UIViewController {
     
     func nextQuestion(){
         if nextLevelCount < 10{
-            question = Equation(currentLevel: level)
+            question = Equation(currentLevel: player!.level)
             updateUI()
         }else{
-            level += 1
-            if level == 5{ //Player has completed the game, save details, go back to main menu
+            player!.level += 1
+            if player!.level == 5{ //Player has completed the game, save details, go back to main menu
                 print("Congrats you finished the game!")
                 let alert = UIAlertController(title: "Congratulations!", message: "You have succesfully completed Mathleta!", preferredStyle: .alert)
                 let restartAction = UIAlertAction(title: "Main Menu", style: .default, handler: { (UIAlertAction) in
@@ -87,7 +91,7 @@ class GameViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
             }else{
                 nextLevelCount = 0
-                question = Equation(currentLevel: level)
+                question = Equation(currentLevel: player!.level)
                 timerCounter = 60
                 updateUI()
             }
@@ -102,8 +106,8 @@ class GameViewController: UIViewController {
         buttonTwoLabel.setTitle("\(question.randomAnswers[1])", for: .normal)
         buttonThreeLabel.setTitle("\(question.randomAnswers[2])", for: .normal)
         buttonFourLabel.setTitle("\(question.randomAnswers[3])", for: .normal)
-        scoreLabel.text = "Score: \(score)"
-        levelLabel.text = "Level: \(level)"
+        scoreLabel.text = "Score: \(player!.score)"
+        levelLabel.text = "Level: \(player!.level)"
         
         
         
@@ -112,7 +116,7 @@ class GameViewController: UIViewController {
     
     func checkAnswer(){
         if pickedAnswer == question.correctAnswer{
-            score += 1
+            player!.score += 1
             nextLevelCount += 1
             print("Correct")
         }else{
@@ -137,7 +141,14 @@ class GameViewController: UIViewController {
     }
     
     func backToMainMenu(){
-        //save details
+        do{
+            try realm.write {
+                realm.add(player!)
+            }
+        }catch{
+            print("Error saving player data")
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     

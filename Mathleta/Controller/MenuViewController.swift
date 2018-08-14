@@ -34,7 +34,13 @@ class MenuViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToGame"{
             let destinationVC = segue.destination as! GameViewController
+            //create player here
+            let newPlayer = Player()
+            newPlayer.name = nameTextField.text!
+            destinationVC.player = newPlayer
             destinationVC.name = nameTextField.text!
+        }else if segue.identifier == "goToScore"{
+            //let destinationVC = segue.destination as! ScoreTableViewController
         }
     }
 
