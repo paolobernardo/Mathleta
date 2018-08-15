@@ -11,12 +11,13 @@
 		508E435621212116004A1B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E435521212116004A1B40 /* AppDelegate.swift */; };
 		508E435821212116004A1B40 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E435721212116004A1B40 /* GameViewController.swift */; };
 		508E435B21212116004A1B40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508E435921212116004A1B40 /* Main.storyboard */; };
-		508E435D21212117004A1B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508E435C21212117004A1B40 /* Assets.xcassets */; };
 		508E436021212117004A1B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508E435E21212117004A1B40 /* LaunchScreen.storyboard */; };
 		508E436D21212435004A1B40 /* Equation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E436C21212435004A1B40 /* Equation.swift */; };
 		508E436F212219C6004A1B40 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E436E212219C6004A1B40 /* MenuViewController.swift */; };
 		50B35745212299B300D44300 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B35744212299B300D44300 /* Player.swift */; };
 		50B357472122A88C00D44300 /* ScoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B357462122A88C00D44300 /* ScoreTableViewController.swift */; };
+		50B3574B2123C0C300D44300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B3574A2123C0C300D44300 /* Assets.xcassets */; };
+		50B3574D2123E73500D44300 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3574C2123E73500D44300 /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,13 +27,14 @@
 		508E435521212116004A1B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		508E435721212116004A1B40 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		508E435A21212116004A1B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		508E435C21212117004A1B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		508E435F21212117004A1B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		508E436121212117004A1B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		508E436C21212435004A1B40 /* Equation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equation.swift; sourceTree = "<group>"; };
 		508E436E212219C6004A1B40 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		50B35744212299B300D44300 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		50B357462122A88C00D44300 /* ScoreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableViewController.swift; sourceTree = "<group>"; };
+		50B3574A2123C0C300D44300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../WhatEquation/WhatEquation/View/Assets.xcassets; sourceTree = "<group>"; };
+		50B3574C2123E73500D44300 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		60098B42A2359350B7AB4834 /* Pods-Mathleta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mathleta.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mathleta/Pods-Mathleta.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,8 +99,9 @@
 		508E436921212174004A1B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				50B3574A2123C0C300D44300 /* Assets.xcassets */,
 				508E435921212116004A1B40 /* Main.storyboard */,
-				508E435C21212117004A1B40 /* Assets.xcassets */,
+				50B3574C2123E73500D44300 /* CustomButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,7 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				508E436021212117004A1B40 /* LaunchScreen.storyboard in Resources */,
-				508E435D21212117004A1B40 /* Assets.xcassets in Resources */,
+				50B3574B2123C0C300D44300 /* Assets.xcassets in Resources */,
 				508E435B21212116004A1B40 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +253,7 @@
 				508E435621212116004A1B40 /* AppDelegate.swift in Sources */,
 				50B357472122A88C00D44300 /* ScoreTableViewController.swift in Sources */,
 				508E436D21212435004A1B40 /* Equation.swift in Sources */,
+				50B3574D2123E73500D44300 /* CustomButton.swift in Sources */,
 				50B35745212299B300D44300 /* Player.swift in Sources */,
 				508E436F212219C6004A1B40 /* MenuViewController.swift in Sources */,
 			);
@@ -406,7 +410,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.paolobernardo.Mathleta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -425,7 +429,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.paolobernardo.Mathleta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
