@@ -13,13 +13,12 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        // Do any additional setup after loading the view.
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,16 +32,12 @@ class MenuViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToGame"{
-            let destinationVC = segue.destination as! GameViewController
-            //create player here
             let newPlayer = Player()
             newPlayer.name = nameTextField.text!
+            
+            let destinationVC = segue.destination as! GameViewController
             destinationVC.player = newPlayer
-            destinationVC.name = nameTextField.text!
-        }else if segue.identifier == "goToScore"{
-            //let destinationVC = segue.destination as! ScoreTableViewController
         }
     }
-
-
+    
 }

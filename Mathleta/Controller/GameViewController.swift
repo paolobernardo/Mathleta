@@ -25,17 +25,17 @@ class GameViewController: UIViewController {
     @IBOutlet weak var buttonThreeLabel: UIButton!
     @IBOutlet weak var buttonFourLabel: UIButton!
     
-    var question = Equation(currentLevel: 1) // This is initial value
+    var question = Equation(currentLevel: 1) // Initialized it with a random value
     
     let realm = try! Realm()
+    
     var player : Player?
-    
-    var name : String = "" //Used Player class - to delete
-    var score : Int = 0 //Used Player class - to delete
     var nextLevelCount : Int = 0
-    var level : Int = 1 //Used Player class - to delete
-    
     var pickedAnswer : Int = 0
+    
+    var flashTag : Int = 0
+    var flashedButton = UIButton()
+    
     
     
     override func viewDidLoad() {
@@ -47,31 +47,32 @@ class GameViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
         
         nextQuestion()
-        
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    
     @IBAction func answerButton(_ sender: AnyObject) {
         if sender.tag == 1{
             pickedAnswer = question.randomAnswers[0]
+            flashTag = 1
         }else if sender.tag == 2{
             pickedAnswer = question.randomAnswers[1]
+            flashTag = 2
         }else if sender.tag == 3{
             pickedAnswer = question.randomAnswers[2]
+            flashTag = 3
         }else if sender.tag == 4{
             pickedAnswer = question.randomAnswers[3]
+            flashTag = 4
         }
         
         checkAnswer()
-        
         nextQuestion()
-        
     }
     
     
@@ -81,9 +82,9 @@ class GameViewController: UIViewController {
             updateUI()
         }else{
             player!.level += 1
-            if player!.level == 5{ //Player has completed the game, save details, go back to main menu
+            if player!.level == 6{ //Player has completed the game, save details, go back to main menu
                 print("Congrats you finished the game!")
-                let alert = UIAlertController(title: "Congratulations!", message: "You have succesfully completed Mathleta!", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Congratulations \(player?.name ?? "player")!", message: "You have succesfully completed Mathleta!", preferredStyle: .alert)
                 let restartAction = UIAlertAction(title: "Main Menu", style: .default, handler: { (UIAlertAction) in
                     self.backToMainMenu()
                 })
@@ -95,10 +96,9 @@ class GameViewController: UIViewController {
                 timerCounter = 60
                 updateUI()
             }
-            
         }
-        
     }
+    
     
     func updateUI(){
         equationQuestionLabel.text = question.fullEquation
@@ -108,19 +108,18 @@ class GameViewController: UIViewController {
         buttonFourLabel.setTitle("\(question.randomAnswers[3])", for: .normal)
         scoreLabel.text = "Score: \(player!.score)"
         levelLabel.text = "Level: \(player!.level)"
-        
-        
-        
-        
     }
+    
     
     func checkAnswer(){
         if pickedAnswer == question.correctAnswer{
             player!.score += 1
             nextLevelCount += 1
             print("Correct")
+            flashButton(correct: true)
         }else{
             print("Incorrect")
+            flashButton(correct: false)
         }
     }
     
@@ -131,7 +130,7 @@ class GameViewController: UIViewController {
         if timerCounter == 0{ //Timer has elapsed, save details, go back to main menu
             timer.invalidate()
             print("End game")
-            let alert = UIAlertController(title: "Timer has elapsed", message: "Better luck next time!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "You have ran out of time", message: "Better luck next time \(player?.name ?? "player")!", preferredStyle: .alert)
             let restartAction = UIAlertAction(title: "Main Menu", style: .default, handler: { (UIAlertAction) in
                 self.backToMainMenu()
             })
@@ -139,6 +138,7 @@ class GameViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+    
     
     func backToMainMenu(){
         do{
@@ -153,7 +153,15 @@ class GameViewController: UIViewController {
     }
     
     
+    func flashButton(correct: Bool){
+        flashedButton = self.view.viewWithTag(flashTag) as! UIButton
     
+        if (correct){
+            flashedButton.flash(color : UIColor.green)
+        }else{
+            flashedButton.flash(color: UIColor.red)
+        }
+    }
     
 }
 

@@ -9,12 +9,12 @@
 import Foundation
 
 class Equation {
+    
     var fullEquation : String = ""
     var firstOperand : Int = 0
     var secondOperand : Int = 0
     var equationOperator : String = ""
     var correctAnswer : Int = 0
-    
     var randomAnswers = [Int]()
     
     var level = 0
@@ -25,7 +25,8 @@ class Equation {
     var operatorsList : [String] = ["+", "-", "*", "/"]
     
     
-    init(currentLevel : Int){
+    
+    init(currentLevel : Int){ //Future - add new levels here
         level = currentLevel
         switch (self.level) {
         case 1:
@@ -70,17 +71,19 @@ class Equation {
         createRandomAnswers()
     }
     
+    
     func createRandomAnswers(){
         var i = 1
         var checkerInt = 0
+        
         while(i <= 3){
             checkerInt = generateRandomAnswer(lower: correctAnswer-10, upper: correctAnswer+10)
             if !(randomAnswers.contains(checkerInt)){
                 randomAnswers.append(checkerInt)
                 i += 1;
             }
-            
         }
+        
         randomAnswers.append(correctAnswer)
         randomAnswers.shuffle()
         
@@ -89,9 +92,11 @@ class Equation {
     
     func generateRandomAnswer (lower: Int , upper: Int) -> Int {
         var randomAnswer = correctAnswer
+        
         while(randomAnswer == correctAnswer){
             randomAnswer = lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
         }
+        
         return randomAnswer
     }
     

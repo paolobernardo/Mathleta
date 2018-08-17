@@ -6,6 +6,7 @@
 //  Copyright © 2018 Paolo Bernardo. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 @IBDesignable
@@ -18,11 +19,13 @@ class CustomButton: UIButton {
         }
     }
     
+    
     @IBInspectable var borderWidth: CGFloat = 0{
         didSet{
             self.layer.borderWidth = borderWidth
         }
     }
+    
     
     @IBInspectable var borderColor: UIColor = UIColor.clear{
         didSet{
@@ -30,7 +33,18 @@ class CustomButton: UIButton {
         }
     }
     
-    
-    
+}
 
+
+
+extension UIButton{
+    
+    func flash(color : UIColor){
+        let flash = CABasicAnimation(keyPath: "backgroundColor")
+        flash.fromValue = color.cgColor
+        flash.toValue = UIColor.clear.cgColor
+        flash.duration = 0.5
+        layer.add(flash, forKey: "ColorPulse")
+    }
+    
 }

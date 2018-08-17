@@ -15,6 +15,4 @@ class Player: Object{
     @objc dynamic var score : Int = 0
     @objc dynamic var level : Int = 1
     
-    
-    
 }

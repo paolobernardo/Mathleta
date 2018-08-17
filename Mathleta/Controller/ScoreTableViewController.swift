@@ -14,7 +14,6 @@ class ScoreTableViewController: UIViewController, UITableViewDataSource, UITable
     var players : Results<Player>?
     let realm = try! Realm()
     
-    
     @IBOutlet weak var scoreTableView: UITableView!
     
     
@@ -26,15 +25,12 @@ class ScoreTableViewController: UIViewController, UITableViewDataSource, UITable
         scoreTableView.dataSource = self
         
         fetchPlayers()
-
-
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-  
-        
     }
     
     
@@ -42,20 +38,22 @@ class ScoreTableViewController: UIViewController, UITableViewDataSource, UITable
         return players?.count ?? 1
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath)
         
         if let player = players?[indexPath.row]{
-            
             cell.textLabel?.text = player.name
-            
+            cell.detailTextLabel?.text = "\(player.score)"
         }
         
         return cell
     }
     
+    
     func fetchPlayers(){
         players = realm.objects(Player.self)
+        players = players?.sorted(byKeyPath: "score", ascending: false)
         scoreTableView.reloadData()
     }
 
